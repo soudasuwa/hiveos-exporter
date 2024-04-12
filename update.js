@@ -163,6 +163,6 @@ function sanitizeFarmName(name) {
 	const exclude = ["cryptotech", "farm", "hosting"]
 	return name
 		.split(" ")
-		.filter((part) => exclude.includes(part.toLowerCase()))
+		.filter((part) => exclude.includes(part.toLowerCase()) !== true)
 		.join(" ")
 }
