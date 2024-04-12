@@ -59,6 +59,48 @@ const hiveos_boards_offline_total = new Gauge({
 	help: "Total number of offline boards",
 })
 
+const hiveos_farm_workers = new Gauge({
+	name: "hiveos_farm_workers",
+	help: "Farm number of workers",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_worker_problems = new Gauge({
+	name: "hiveos_farm_worker_problems",
+	help: "Farm number of workers with problems",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_workers_online = new Gauge({
+	name: "hiveos_farm_workers_online",
+	help: "Farm number of online workers",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_workers_offline = new Gauge({
+	name: "hiveos_farm_workers_offline",
+	help: "Farm number of offline workers",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_boards = new Gauge({
+	name: "hiveos_farm_boards",
+	help: "Farm number of boards",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_boards_online = new Gauge({
+	name: "hiveos_farm_boards_online",
+	help: "Farm number of online boards",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_boards_offline = new Gauge({
+	name: "hiveos_farm_boards_offline",
+	help: "Farm number of offline boards",
+	labelNames: ["farmId", "farmName"],
+})
+
 export async function update() {
 	hiveos_updates_total.inc()
 
@@ -84,7 +126,7 @@ export async function update() {
 
 	hiveos_farms_total.set(farms.length)
 
-	for (const { stats } of farms) {
+	for (const { id, name, stats } of farms) {
 		const {
 			workers_total,
 			workers_with_problem,
@@ -95,6 +137,17 @@ export async function update() {
 			boards_offline,
 		} = stats
 
+		const labels = { farmId: id, farmName: sanitizeFarmName(name) }
+
+		hiveos_farm_workers.set(labels, 0)
+		hiveos_farm_worker_problems.set(labels, 0)
+		hiveos_farm_workers_online.set(labels, 0)
+		hiveos_farm_workers_offline.set(labels, 0)
+
+		hiveos_farm_boards.set(labels, 0)
+		hiveos_farm_boards_online.set(labels, 0)
+		hiveos_farm_boards_offline.set(labels, 0)
+
 		hiveos_workers_total.inc(workers_total)
 		hiveos_worker_problems_total.inc(workers_with_problem)
 		hiveos_workers_online_total.inc(workers_online)
@@ -104,4 +157,12 @@ export async function update() {
 		hiveos_boards_online_total.inc(boards_online)
 		hiveos_boards_offline_total.inc(boards_offline)
 	}
+}
+
+function sanitizeFarmName(name) {
+	const exclude = ["cryptotech", "farm", "hosting"]
+	return name
+		.split(" ")
+		.filter((part) => exclude.includes(part.toLowerCase()))
+		.join(" ")
 }
