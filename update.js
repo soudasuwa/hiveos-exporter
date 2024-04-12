@@ -1,3 +1,5 @@
+import { Counter, Gauge } from "prom-client"
+
 import { HiveOSAPI } from "./api.js"
 
 if (typeof process.env.HIVEOS_API !== "string" || process.env.HIVEOS_API.length === 0) {
