@@ -139,14 +139,14 @@ export async function update() {
 
 		const labels = { farmId: id, farmName: sanitizeFarmName(name) }
 
-		hiveos_farm_workers.set(labels, 0)
-		hiveos_farm_worker_problems.set(labels, 0)
-		hiveos_farm_workers_online.set(labels, 0)
-		hiveos_farm_workers_offline.set(labels, 0)
+		hiveos_farm_workers.set(labels, workers_total)
+		hiveos_farm_worker_problems.set(labels, workers_with_problem)
+		hiveos_farm_workers_online.set(labels, workers_online)
+		hiveos_farm_workers_offline.set(labels, workers_offline)
 
-		hiveos_farm_boards.set(labels, 0)
-		hiveos_farm_boards_online.set(labels, 0)
-		hiveos_farm_boards_offline.set(labels, 0)
+		hiveos_farm_boards.set(labels, boards_total)
+		hiveos_farm_boards_online.set(labels, boards_online)
+		hiveos_farm_boards_offline.set(labels, boards_offline)
 
 		hiveos_workers_total.inc(workers_total)
 		hiveos_worker_problems_total.inc(workers_with_problem)
