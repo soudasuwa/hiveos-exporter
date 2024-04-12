@@ -5,6 +5,10 @@ import { update } from "./update.js"
 
 export const app = express()
 
+app.get("/", async (req, res) => {
+	res.end("<a href='/metrics'>/metrics</a>")
+})
+
 app.get("/metrics", async (req, res) => {
 	await update()
 
