@@ -10,53 +10,53 @@ export const hive = new HiveOSAPI(process.env.HIVEOS_API)
 
 const hiveos_updates_total = new Counter({
 	name: "hiveos_updates_total",
-	help: "Total number of HiveOS updates"
+	help: "Total number of HiveOS updates",
 })
 
 const hiveos_updates_errors_total = new Counter({
 	name: "hiveos_updates_errors_total",
 	help: "Total number of HiveOS update errors",
-	labelNames: ["error"]
+	labelNames: ["error"],
 })
 
 const hiveos_farms_total = new Gauge({
 	name: "hiveos_farms_total",
-	help: "Total number of farms"
+	help: "Total number of farms",
 })
 
 const hiveos_workers_total = new Gauge({
 	name: "hiveos_workers_total",
-	help: "Total number of workers"
+	help: "Total number of workers",
 })
 
 const hiveos_worker_problems_total = new Gauge({
 	name: "hiveos_worker_problems_total",
-	help: "Total number of workers with problems"
+	help: "Total number of workers with problems",
 })
 
 const hiveos_workers_online_total = new Gauge({
 	name: "hiveos_workers_online_total",
-	help: "Total number of online workers"
+	help: "Total number of online workers",
 })
 
 const hiveos_workers_offline_total = new Gauge({
 	name: "hiveos_workers_offline_total",
-	help: "Total number of offline workers"
+	help: "Total number of offline workers",
 })
 
 const hiveos_boards_total = new Gauge({
 	name: "hiveos_boards_total",
-	help: "Total number of boards"
+	help: "Total number of boards",
 })
 
 const hiveos_boards_online_total = new Gauge({
 	name: "hiveos_boards_online_total",
-	help: "Total number of online boards"
+	help: "Total number of online boards",
 })
 
 const hiveos_boards_offline_total = new Gauge({
 	name: "hiveos_boards_offline_total",
-	help: "Total number of offline boards"
+	help: "Total number of offline boards",
 })
 
 export async function update() {
