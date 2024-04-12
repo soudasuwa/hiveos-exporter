@@ -1,0 +1,12 @@
+{
+	"type": "module",
+	"scripts": {
+		"listen": "node listen.js"
+	},
+	"dependencies": {
+		"axios": "^1.6.8",
+		"axios-retry": "^4.1.0",
+		"express": "^4.19.2",
+		"prom-client": "^15.1.1"
+	}
+}
