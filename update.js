@@ -146,14 +146,21 @@ export async function update() {
 
 	for (const { id, name, stats, money } of farms) {
 		const {
-			workers_total,
+			asics_total,
+			asics_online,
+			asics_offline,
+			rigs_total,
+			rigs_online,
+			rigs_offline,
 			workers_with_problem,
-			workers_online,
-			workers_offline,
 			boards_total,
 			boards_online,
 			boards_offline,
 		} = stats
+
+		const workers_total = asics_total + rigs_total
+		const workers_online = asics_online + rigs_online
+		const workers_offline = asics_offline + rigs_offline
 
 		const labels = { farmId: id, farmName: sanitizeFarmName(name) }
 
