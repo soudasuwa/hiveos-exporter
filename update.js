@@ -101,6 +101,24 @@ const hiveos_farm_boards_offline = new Gauge({
 	labelNames: ["farmId", "farmName"],
 })
 
+const hiveos_farm_balance = new Gauge({
+	name: "hiveos_farm_balance",
+	help: "Farm available HiveOS balance",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_paid = new Gauge({
+	name: "hiveos_farm_paid",
+	help: "Farm is HiveOS paid",
+	labelNames: ["farmId", "farmName"],
+})
+
+const hiveos_farm_money_days_left = new Gauge({
+	name: "hiveos_farm_money_days_left",
+	help: "HiveOS paid days left",
+	labelNames: ["farmId", "farmName"],
+})
+
 export async function update() {
 	hiveos_updates_total.inc()
 
@@ -126,7 +144,7 @@ export async function update() {
 
 	hiveos_farms_total.set(farms.length)
 
-	for (const { id, name, stats } of farms) {
+	for (const { id, name, stats, money } of farms) {
 		const {
 			workers_total,
 			workers_with_problem,
@@ -156,6 +174,16 @@ export async function update() {
 		hiveos_boards_total.inc(boards_total)
 		hiveos_boards_online_total.inc(boards_online)
 		hiveos_boards_offline_total.inc(boards_offline)
+
+		const {
+			balance,
+			is_paid,
+			days_left,
+		} = money
+
+		hiveos_farm_balance.set(labels, balance)
+		hiveos_farm_paid.set(labels, is_paid === true ? 1 : 0)
+		hiveos_farm_money_days_left.set(labels, days_left || 0)
 	}
 }
 
